@@ -20,23 +20,9 @@
     />
     <!-- Chart.js for advanced charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
 
-    <style>
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: hsl(var(--b2, var(--b1)));
-      }
-      ::-webkit-scrollbar-thumb {
-        background: hsl(var(--p, primaryColor));
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: hsl(var(--p-focus, primaryColor));
-      }
-    </style>
+    <style></style>
   </head>
   <body class="flex flex-col min-h-screen bg-base-100">
     <!-- Header -->
@@ -49,7 +35,7 @@
             alt="FlexGrid Logo"
             class="h-10 w-10"
           />
-          <h1 class="text-xl font-bold text-base-content">
+          <h1 class="text-xl font-bold text-base-content hidden md:block">
             FlexGrid Analytics
           </h1>
         </div>
@@ -67,7 +53,6 @@
             ></i>
           </div>
         </div>
-        
 
         <!-- User and Theme Controls -->
         <div class="flex items-center space-x-4">
@@ -171,12 +156,12 @@
       </nav>
 
       <!-- Sidebar Toggle for Mobile -->
-      <label
+      <!-- <label
         for="sidebar-toggle"
         class="btn btn-circle btn-ghost md:hidden fixed top-4 left-4 z-50"
       >
-        <i class="fas fa-bars"></i>
-      </label>
+        <i class="fas fa-bars"></i> -->
+      <!-- </label> -->
 
       <!-- Main Content Area -->
       <main class="flex-grow p-6 overflow-auto bg-base-100">
@@ -261,10 +246,12 @@
           <div class="card bg-white shadow-xl p-4">
             <h2 class="text-lg font-bold mb-4">Sales Channel Distribution</h2>
             <div class="h-96 w-full">
-              <canvas id="salesDistributionChart" class="w-full h-full"></canvas>
+              <canvas
+                id="salesDistributionChart"
+                class="w-full h-full"
+              ></canvas>
             </div>
           </div>
-      
         </section>
 
         <!-- Recent Activity Table -->
@@ -273,13 +260,13 @@
             <div class="card-body">
               <h2 class="card-title">Recent Activity</h2>
               <div class="overflow-x-auto">
-                <table class="table table-zebra">
+                <table class="table table-zebra w-full">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Action</th>
-                      <th>Time</th>
-                      <th>Status</th>
+                      <th class="text-sm md:text-base">Name</th>
+                      <th class="text-sm md:text-base">Action</th>
+                      <th class="text-sm md:text-base">Time</th>
+                      <th class="text-sm md:text-base">Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -295,7 +282,7 @@
                       <td>Jane Smith</td>
                       <td>Updated Profile</td>
                       <td>4 hours ago</td>
-                      <td><span class="badge badge-info">In Progress</span></td>
+                      <td><span class="badge badge-info">Progress</span></td>
                     </tr>
                     <tr>
                       <td>Mike Johnson</td>
@@ -315,7 +302,7 @@
                       <td>Jane Smith</td>
                       <td>Updated Profile</td>
                       <td>4 hours ago</td>
-                      <td><span class="badge badge-info">In Progress</span></td>
+                      <td><span class="badge badge-info">Progress</span></td>
                     </tr>
                     <tr>
                       <td>Mike Johnson</td>
@@ -356,6 +343,5 @@
     <!-- Scripts -->
   </body>
   <script src="script.js"></script>
-
-  
+  <script></script>
 </html>

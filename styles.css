@@ -1,4 +1,3 @@
-/* Enhanced Dashboard CSS */
 
 /* Dark Mode Enhancements */
 body[data-theme='dark'] {
@@ -28,7 +27,7 @@ body[data-theme='dark'] .card {
         padding: 0.5rem;
     }
 
-    .navbar > div {
+    .navbar>div {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -72,7 +71,7 @@ body[data-theme='dark'] .card {
 
 /* Advanced Hover and Interaction Effects */
 .card {
-    transition: 
+    transition:
         transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
         box-shadow 0.3s ease;
 }
@@ -128,8 +127,15 @@ body {
 
 /* Subtle Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .animate-fade-in {
@@ -168,3 +174,23 @@ body {
         max-height: 300px;
     }
 }
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--b2, var(--b1)));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--p, primaryColor));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--p-focus, primaryColor));
+}
+
