@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FlexGrid Analytics Dashboard</title>
+    <!-- DaisyUI and Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Chart.js for advanced charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: hsl(var(--b2, var(--b1)));
+      }
+      ::-webkit-scrollbar-thumb {
+        background: hsl(var(--p, primaryColor));
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--p-focus, primaryColor));
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen bg-base-100">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-base-100 shadow-md">
+      <div class="navbar flex justify-between items-center px-4 py-2">
+        <!-- Logo and Title -->
+        <div class="flex items-center space-x-4">
+          <img
+            src="https://img.daisyui.com/images/daisyui-logo/daisyui-logomark-1024-1024.png"
+            alt="FlexGrid Logo"
+            class="h-10 w-10"
+          />
+          <h1 class="text-xl font-bold text-base-content">
+            FlexGrid Analytics
+          </h1>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex-grow mx-4 max-w-lg">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search dashboard..."
+              class="input input-bordered w-full pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <i
+              class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50"
+            ></i>
+          </div>
+        </div>
+        
+
+        <!-- User and Theme Controls -->
+        <div class="flex items-center space-x-4">
+          <!-- Notifications Dropdown -->
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <i class="fas fa-bell"></i>
+                <span class="badge badge-xs badge-primary indicator-item"
+                  >3</span
+                >
+              </div>
+            </div>
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-72"
+            >
+              <li><a>New user registration</a></li>
+              <li><a>Sales report ready</a></li>
+              <li><a>System maintenance</a></li>
+            </ul>
+          </div>
+
+          <!-- Theme Toggle -->
+          <div class="flex items-center gap-4">
+            <label class="swap swap-rotate">
+              <input type="checkbox" id="theme-toggle" />
+              <!-- Moon Icon for Dark Mode -->
+              <i class="swap-on fas fa-moon text-xl"></i>
+              <!-- Sun Icon for Light Mode -->
+              <i class="swap-off fas fa-sun text-xl"></i>
+            </label>
+          </div>
+
+          <!-- User Profile Dropdown -->
+          <div class="dropdown dropdown-end">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-circle avatar"
+            >
+              <div class="w-10 rounded-full">
+                <img alt="User avatar" src="/assets/Avatar-image.png" />
+              </div>
+            </div>
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a><i class="fas fa-user mr-2"></i>Profile</a>
+              </li>
+              <li>
+                <a><i class="fas fa-cog mr-2"></i>Settings</a>
+              </li>
+              <li>
+                <a class="text-error"
+                  ><i class="fas fa-sign-out-alt mr-2"></i>Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="flex flex-grow">
+      <!-- Sidebar -->
+      <input type="checkbox" id="sidebar-toggle" class="hidden" />
+      <nav
+        class="sidebar bg-base-200 w-64 p-4 fixed md:static transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-40"
+        id="sidebar"
+      >
+        <ul class="menu">
+          <li class="menu-title">
+            <span>Main Menu</span>
+          </li>
+          <li>
+            <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-chart-bar"></i> Analytics</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-users"></i> User Management</a>
+          </li>
+
+          <li class="menu-title mt-4">
+            <span>Account</span>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-question-circle"></i> Help & Support</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Toggle for Mobile -->
+      <label
+        for="sidebar-toggle"
+        class="btn btn-circle btn-ghost md:hidden fixed top-4 left-4 z-50"
+      >
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <!-- Main Content Area -->
+      <main class="flex-grow p-6 overflow-auto bg-base-100">
+        <!-- Quick Stats Cards -->
+        <section
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+        >
+          <!-- Existing cards with slight modifications -->
+          <div
+            class="card bg-error text-secondary-content shadow-xl hover:scale-105 transition-transform"
+          >
+            <div class="card-body">
+              <div class="card-title flex items-center">
+                <i class="fas fa-users mr-2"></i>
+                Total Users
+              </div>
+              <p class="text-4xl font-bold">1,234</p>
+              <div class="flex items-center text-sm">
+                <i class="fas fa-arrow-up text-success mr-1"></i>
+                15% from last month
+              </div>
+            </div>
+          </div>
+          <!-- Repeat similar styling for other cards -->
+          <div
+            class="card bg-success text-secondary-content shadow-xl hover:scale-105 transition-transform"
+          >
+            <div class="card-body">
+              <div class="card-title flex items-center">
+                <i class="fas fa-chart-line mr-2"></i>
+                Revenue
+              </div>
+              <p class="text-4xl font-bold">$45,678</p>
+              <div class="flex items-center text-sm">
+                <i class="fas fa-arrow-up text-white mr-1"></i>
+                22% from last month
+              </div>
+            </div>
+          </div>
+          <div
+            class="card bg-accent text-accent-content shadow-xl hover:scale-105 transition-transform"
+          >
+            <div class="card-body">
+              <div class="card-title flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                Sales
+              </div>
+              <p class="text-4xl font-bold">789</p>
+              <div class="flex items-center text-sm">
+                <i class="fas fa-arrow-up text-success mr-1"></i>
+                10% from last month
+              </div>
+            </div>
+          </div>
+          <div
+            class="card bg-neutral text-neutral-content shadow-xl hover:scale-105 transition-transform"
+          >
+            <div class="card-body">
+              <div class="card-title flex items-center">
+                <i class="fas fa-globe mr-2"></i>
+                Visitors
+              </div>
+              <p class="text-4xl font-bold">5,678</p>
+              <div class="flex items-center text-sm">
+                <i class="fas fa-arrow-up text-success mr-1"></i>
+                25% from last month
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Charts and Data Visualization -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+          <div class="card bg-white shadow-xl p-4">
+            <h2 class="text-lg font-bold mb-4">Quarterly Revenue Trends</h2>
+            <div class="h-96 w-full">
+              <canvas id="revenueChart" class="w-full h-full"></canvas>
+            </div>
+          </div>
+
+          <!-- Pie Chart -->
+          <div class="card bg-white shadow-xl p-4">
+            <h2 class="text-lg font-bold mb-4">Sales Channel Distribution</h2>
+            <div class="h-96 w-full">
+              <canvas id="salesDistributionChart" class="w-full h-full"></canvas>
+            </div>
+          </div>
+      
+        </section>
+
+        <!-- Recent Activity Table -->
+        <section class="mt-6">
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">Recent Activity</h2>
+              <div class="overflow-x-auto">
+                <table class="table table-zebra">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Action</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>Purchased Pro Plan</td>
+                      <td>2 hours ago</td>
+                      <td>
+                        <span class="badge badge-success">Completed</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Jane Smith</td>
+                      <td>Updated Profile</td>
+                      <td>4 hours ago</td>
+                      <td><span class="badge badge-info">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td>Mike Johnson</td>
+                      <td>Submitted Support Ticket</td>
+                      <td>6 hours ago</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>Purchased Pro Plan</td>
+                      <td>2 hours ago</td>
+                      <td>
+                        <span class="badge badge-success">Completed</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Jane Smith</td>
+                      <td>Updated Profile</td>
+                      <td>4 hours ago</td>
+                      <td><span class="badge badge-info">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td>Mike Johnson</td>
+                      <td>Submitted Support Ticket</td>
+                      <td>6 hours ago</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-base-200 p-4 flex justify-between items-center">
+      <div class="text-base-content">
+        &copy; 2024 FlexGrid Analytics. All rights reserved.
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="text-xl hover:text-primary transition-colors"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a href="#" class="text-xl hover:text-primary transition-colors"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="#" class="text-xl hover:text-primary transition-colors"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a href="#" class="text-xl hover:text-primary transition-colors"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+  </body>
+  <script src="script.js"></script>
+
+  
+</html>
